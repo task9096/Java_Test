@@ -4,12 +4,16 @@ import com.rs.hospital.dto.ContactDTO;
 import com.rs.hospital.model.Contact;
 import com.rs.hospital.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
+@Transactional
 public class ContactServiceImpl  implements ContactService {
 
     @Autowired
