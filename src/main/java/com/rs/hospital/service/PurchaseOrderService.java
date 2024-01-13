@@ -16,5 +16,6 @@ public interface PurchaseOrderService {
     public List<PurchaseOrderDTO> getAll();
     public List<PurchaseOrderDTO> getAllApproved();
     public Map<String, Boolean> delete(long bid) throws Exception;
+    public List<PurchaseOrderDTO> listAllByLoginCustomer(long userId);
 
 }

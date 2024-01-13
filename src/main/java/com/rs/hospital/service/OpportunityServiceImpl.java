@@ -1,7 +1,9 @@
 package com.rs.hospital.service;
 
+import com.rs.hospital.dto.OpportunityBean;
 import com.rs.hospital.dto.OpportunityDTO;
 import com.rs.hospital.model.Opportunity;
+import com.rs.hospital.repository.OpportunityNativeRepository;
 import com.rs.hospital.repository.OpportunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ public class OpportunityServiceImpl implements OpportunityService {
 
     @Autowired
     private OpportunityRepository repo;
+
+    @Autowired
+    OpportunityNativeRepository opportunityNativeRepository;
 
     /**
      *
@@ -103,13 +108,7 @@ public class OpportunityServiceImpl implements OpportunityService {
 
     @Override
     public List<OpportunityDTO> getAll() {
-        List<Opportunity> opportunityList = repo.findAll();
-        List<OpportunityDTO> opportunityDTOList = new ArrayList<>();
-
-        for(Opportunity Opportunity : opportunityList) {
-            opportunityDTOList.add(convertModelToDTO(Opportunity));
-        }
-
+         List<OpportunityDTO> opportunityDTOList = opportunityNativeRepository.findAllOpportunitiesWithCustomerName1();
         return opportunityDTOList;
     }
 

@@ -23,6 +23,7 @@ public class InvoiceDTO {
     private LocalDateTime invoiceDate;
     private Long purchaseOrderId;
     private String invoiceNumber;
+    private String customerName;
 
     public InvoiceDTO(Invoice invoice) {
 

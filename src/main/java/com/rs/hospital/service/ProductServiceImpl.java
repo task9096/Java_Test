@@ -2,6 +2,7 @@ package com.rs.hospital.service;
 
 import com.rs.hospital.dto.ProductDTO;
 import com.rs.hospital.model.Product;
+import com.rs.hospital.repository.ProductNativeRepository;
 import com.rs.hospital.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class ProductServiceImpl  implements ProductService {
 
     @Autowired
     private ProductRepository repo;
+
+    @Autowired
+    private ProductNativeRepository productNativeRepository;
 
     /**
      *
@@ -95,12 +99,13 @@ public class ProductServiceImpl  implements ProductService {
 
     @Override
     public List<ProductDTO> getAll() {
-        List<Product> productList = repo.findAll();
-        List<ProductDTO> productDTOList = new ArrayList<>();
+        //List<Product> productList = repo.findAll();
+        //List<ProductDTO> productDTOList = new ArrayList<>();
+        List<ProductDTO> productDTOList =productNativeRepository.findAllProductWithCategory();
 
-        for(Product product : productList) {
+        /*for(Product product : productList) {
             productDTOList.add(convertModelToDTO(product));
-        }
+        }*/
 
         return productDTOList;
     }

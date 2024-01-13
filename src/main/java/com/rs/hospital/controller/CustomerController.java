@@ -69,5 +69,12 @@ public class CustomerController{
         return ResponseEntity.ok().body(res);
     }
 
+    @GetMapping(value="/customer/user/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    public ResponseEntity<CustomerDTO> findProfileByUserId(@PathVariable long id) throws Exception {
+
+        CustomerDTO customerDTO = customerImpl.profileByUserId(id);
+        return ResponseEntity.ok().body(customerDTO);
+    }
+
 }
 

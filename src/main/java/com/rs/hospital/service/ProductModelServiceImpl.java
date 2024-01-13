@@ -2,6 +2,7 @@ package com.rs.hospital.service;
 
 import com.rs.hospital.dto.ProductModelDTO;
 import com.rs.hospital.model.ProductModel;
+import com.rs.hospital.repository.ProductModelNativeRepository;
 import com.rs.hospital.repository.ProductModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class ProductModelServiceImpl  implements ProductModelService {
 
     @Autowired
     private ProductModelRepository repo;
+
+    @Autowired
+    private ProductModelNativeRepository productModelNativeRepository;
 
     /**
      *
@@ -44,6 +48,7 @@ public class ProductModelServiceImpl  implements ProductModelService {
         productModel.setPrice(productModelDTO.getPrice());
         productModel.setProductId(productModelDTO.getProductId());
         productModel.setImageUrl(productModelDTO.getImageUrl());
+        productModel.setStock(productModelDTO.getStock());
 
         return productModel;
     }
@@ -73,6 +78,7 @@ public class ProductModelServiceImpl  implements ProductModelService {
         copyProductModel.setPrice(productModelDTO.getPrice());
         copyProductModel.setProductId(productModelDTO.getProductId());
         copyProductModel.setImageUrl(productModelDTO.getImageUrl());
+        copyProductModel.setStock(productModelDTO.getStock());
 
         // step 1 
         ProductModel ProductModel = convertDTOtoModel(copyProductModel);
@@ -92,12 +98,13 @@ public class ProductModelServiceImpl  implements ProductModelService {
 
     @Override
     public List<ProductModelDTO> getAll() {
-        List<ProductModel> productModelList = repo.findAll();
-        List<ProductModelDTO> productModelDTOList = new ArrayList<>();
+        //List<ProductModel> productModelList = repo.findAll();
+        //List<ProductModelDTO> productModelDTOList = new ArrayList<>();
+        List<ProductModelDTO> productModelDTOList = productModelNativeRepository.findAllProductModelWithProduct();
 
-        for(ProductModel productModel : productModelList) {
+       /* for(ProductModel productModel : productModelList) {
             productModelDTOList.add(convertModelToDTO(productModel));
-        }
+        }*/
 
         return productModelDTOList;
     }

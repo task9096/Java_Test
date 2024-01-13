@@ -1,6 +1,7 @@
 package com.rs.hospital.service;
 
 import com.rs.hospital.dto.CustomerLeadDTO;
+import com.rs.hospital.model.Customer;
 import com.rs.hospital.model.CustomerLead;
 import com.rs.hospital.model.LeadProduct;
 import com.rs.hospital.repository.*;
@@ -30,6 +31,12 @@ public class CustomerLeadServiceImpl implements CustomerLeadService {
 
     @Autowired
     private ProductModelRepository productModelRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
+    private CustomerLeadNativeRepository customerLeadNativeRepository;
 
     /**
      *
@@ -127,8 +134,16 @@ public class CustomerLeadServiceImpl implements CustomerLeadService {
     public CustomerLeadDTO getById(long bid) throws Exception {
         CustomerLead customerLead = repo.findById(bid)
                 .orElseThrow(() -> new Exception("ID NOT FOUND EXCEPTION :::: " + bid));
+        /*LeadProduct leadProduct = leadProductRepository.findByLeadId(customerLead.getId());
+        return convertModelToDTO(customerLead,leadProduct);*/
         LeadProduct leadProduct = leadProductRepository.findByLeadId(customerLead.getId());
-        return convertModelToDTO(customerLead,leadProduct);
+        Customer customer = customerRepository.getOne(customerLead.getCustomerId());
+        CustomerLeadDTO customerLeadDTO = convertModelToDTO(customerLead,leadProduct);
+        customerLeadDTO.setCustomerName(customer.getFullName());
+        customerLeadDTO.setCategoryName(categoryRepository.getOne(customerLead.getCategoryId()).getCategoryName());
+        customerLeadDTO.setProductName(productRepository.getOne(leadProduct.getProductId()).getProductName());
+        customerLeadDTO.setModelName(productModelRepository.getOne(leadProduct.getModelId()).getModelName());
+        return customerLeadDTO;
     }
 
     @Override
@@ -138,7 +153,9 @@ public class CustomerLeadServiceImpl implements CustomerLeadService {
 
         for(CustomerLead customerLead : customerLeadList) {
             LeadProduct leadProduct = leadProductRepository.findByLeadId(customerLead.getId());
+            Customer customer = customerRepository.getOne(customerLead.getCustomerId());
             CustomerLeadDTO customerLeadDTO = convertModelToDTO(customerLead,leadProduct);
+            customerLeadDTO.setCustomerName(customer.getFullName());
             customerLeadDTO.setCategoryName(categoryRepository.getOne(customerLead.getCategoryId()).getCategoryName());
             customerLeadDTO.setProductName(productRepository.getOne(leadProduct.getProductId()).getProductName());
             customerLeadDTO.setModelName(productModelRepository.getOne(leadProduct.getModelId()).getModelName());
@@ -147,6 +164,21 @@ public class CustomerLeadServiceImpl implements CustomerLeadService {
 
         return customerLeadDTOList;
     }
+
+    @Override
+    public List<CustomerLeadDTO> listAllForSalesOrder() {
+        List<CustomerLeadDTO> customerLeadDTOList = customerLeadNativeRepository.findAllCustomerLeadForSalesOrder();
+
+        return customerLeadDTOList;
+    }
+
+    @Override
+    public List<CustomerLeadDTO> listAllForOpportunity() {
+        List<CustomerLeadDTO> customerLeadDTOList = customerLeadNativeRepository.findAllCustomerLeadForOpportunity();
+
+        return customerLeadDTOList;
+    }
+
 
     @Override
     public Map<String, Boolean> delete(long bid) throws Exception {

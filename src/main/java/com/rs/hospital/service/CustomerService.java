@@ -12,5 +12,5 @@ public interface CustomerService {
     public List<CustomerDTO> getAll();
     public Map<String, Boolean> delete(long bid) throws Exception;
     public boolean isExists(CustomerDTO customerDto);
-
+    public CustomerDTO profileByUserId(long userId);
 }

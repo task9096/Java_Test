@@ -97,6 +97,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public CustomerDTO profileByUserId(long userId) {
+        Customer customer = repo.profileByUserId(userId);
+        return convertModelToDTO(customer);
+    }
+
+
+    @Override
     public List<CustomerDTO> getAll() {
         List<Customer> customerList = repo.findAll();
         List<CustomerDTO> customerDTOList = new ArrayList<>();

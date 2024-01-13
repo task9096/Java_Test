@@ -66,4 +66,15 @@ public class SalesOrderDTO {
 
     private String imageUrl;
 
+    public SalesOrderDTO(Long id, Long leadId, Long userId, Long totalAmount, LocalDate createdDate, String status, String fullName,Long quantity){
+        this.id = id;
+        this.leadId = leadId;
+        this.userId = userId;
+        this.totalAmount = BigDecimal.valueOf(totalAmount);
+        this.createdDate = createdDate;
+        this.statusName = status;
+        this.customerName = fullName;
+        this.quantity = quantity;
+    }
+
 }

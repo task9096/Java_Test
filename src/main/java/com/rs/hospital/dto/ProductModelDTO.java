@@ -1,9 +1,17 @@
 package com.rs.hospital.dto;
 
 import com.rs.hospital.model.ProductModel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductModelDTO {
 
     protected Long id;
@@ -12,9 +20,9 @@ public class ProductModelDTO {
     private String modelName;
     private BigDecimal price;
     private String imageUrl;
+    private Long stock;
+    private String productName;
 
-    public ProductModelDTO() {
-    }
 
     public ProductModelDTO(ProductModel productModel) {
 
@@ -24,53 +32,7 @@ public class ProductModelDTO {
         this.modelName  = productModel.getModelName();
         this.price = productModel.getPrice();
         this.imageUrl = productModel.getImageUrl();
+        this.stock = productModel.getStock();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public String getModelNumber() {
-        return modelNumber;
-    }
-
-    public void setModelNumber(String modelNumber) {
-        this.modelNumber = modelNumber;
-    }
-
-    public String getModelName() {
-        return modelName;
-    }
-
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 }

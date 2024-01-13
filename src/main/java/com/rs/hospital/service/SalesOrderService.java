@@ -9,4 +9,6 @@ public interface SalesOrderService {
     public SalesOrderDTO getSalesOrderByLeadId(Long leadId);
     public String addSalesOrderByLeadId(Long leadId, Long userId);
     public List<SalesOrder> getAll();
+    public List<SalesOrderDTO> getAllWithCustomerName();
+    public List<SalesOrderDTO> findAllSalesOrderByLoginCustomer(Long userId);
 }

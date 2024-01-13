@@ -46,6 +46,10 @@ public class PurchaseOrderDTO {
 
     private String clientStatus;
 
+    private String fullName;
+
+    private Long quantity;
+
     public PurchaseOrderDTO(PurchaseOrder purchaseOrder) {
 
         this.id = purchaseOrder.getId();

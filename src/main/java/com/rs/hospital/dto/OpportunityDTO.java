@@ -28,6 +28,7 @@ public class OpportunityDTO {
     private String extQuotationUrl;
     private String comments;
     private String leadSource;
+    private String customerName;
 
     public OpportunityDTO(Opportunity opportunity) {
 

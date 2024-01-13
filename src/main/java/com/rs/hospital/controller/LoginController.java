@@ -96,6 +96,12 @@ public class LoginController {
 					roles.add(adminRole);
 
 					break;
+				case "customer":
+					Role customerRole = roleRepository.findByName(ERole.ROLE_CUSTOMER)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					roles.add(customerRole);
+
+					break;
 				default:
 					Role userRole = roleRepository.findByName(ERole.ROLE_USER)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));

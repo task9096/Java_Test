@@ -2,6 +2,7 @@ package com.rs.hospital.service;
 
 import com.rs.hospital.dto.InvoiceDTO;
 import com.rs.hospital.model.Invoice;
+import com.rs.hospital.repository.InvoiceNativeRepository;
 import com.rs.hospital.repository.InvoiceRepository;
 import com.rs.hospital.utility.PoNumberGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Autowired
     private InvoiceRepository repo;
+
+    @Autowired
+    private InvoiceNativeRepository invoiceNativeRepository;
 
     /**
      *
@@ -94,12 +98,13 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public List<InvoiceDTO> getAll() {
-        List<Invoice> invoiceList = repo.findAll();
+        /*List<Invoice> invoiceList = repo.findAll();
         List<InvoiceDTO> invoiceDTOList = new ArrayList<>();
 
         for(Invoice Invoice : invoiceList) {
             invoiceDTOList.add(convertModelToDTO(Invoice));
-        }
+        }*/
+        List<InvoiceDTO> invoiceDTOList = invoiceNativeRepository.findAllInvoiceWithCustomerName();
 
         return invoiceDTOList;
     }

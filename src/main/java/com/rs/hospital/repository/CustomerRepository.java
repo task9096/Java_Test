@@ -15,4 +15,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     @Query(value = "SELECT c FROM Customer c WHERE c.email = ?1")
     public Customer existsCustomerByEmail(String email);
+
+    //"INNER JOIN User u ON u.username = c.email where u.id = "+userId
+    @Query(value = "SELECT c FROM Customer c INNER JOIN User u ON u.username = c.email WHERE u.id = ?1")
+    public Customer profileByUserId(long id);
 }

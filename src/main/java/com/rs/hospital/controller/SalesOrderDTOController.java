@@ -39,4 +39,17 @@ public class SalesOrderDTOController {
         return ResponseEntity.ok().body(salesOrders);
     }
 
+    @GetMapping(value="/salesOrder/customer")
+    public ResponseEntity<List<SalesOrderDTO>> getAllWithCustomerName()
+    {
+        List<SalesOrderDTO> salesOrders = salesOrderServiceImpl.getAllWithCustomerName();
+        return ResponseEntity.ok().body(salesOrders);
+    }
+
+
+    @GetMapping(value="/salesOrder/customer/{userId}",produces = { MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE })
+    public ResponseEntity<List<SalesOrderDTO>> findAllSalesOrderByLoginCustomer(@PathVariable("userId") long userId) throws Exception {
+        List<SalesOrderDTO> salesOrders = salesOrderServiceImpl.findAllSalesOrderByLoginCustomer(userId);
+        return ResponseEntity.ok().body(salesOrders);
+    }
 }

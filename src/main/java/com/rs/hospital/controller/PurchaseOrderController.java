@@ -57,6 +57,13 @@ public class PurchaseOrderController{
         return ResponseEntity.ok().body(purchaseOrderDTO);
     }
 
+    @GetMapping(value="/purchaseOrder/customer/{id}")
+    public ResponseEntity<List<PurchaseOrderDTO>> listAllByLoginCustomer(@PathVariable long id)
+    {
+        List<PurchaseOrderDTO> purchaseOrderDTO = purchaseOrderImpl.listAllByLoginCustomer(id);
+        return ResponseEntity.ok().body(purchaseOrderDTO);
+    }
+
     @GetMapping(value="/purchaseOrder/approved")
     public ResponseEntity<List<PurchaseOrderDTO>> listAllApproved()
     {

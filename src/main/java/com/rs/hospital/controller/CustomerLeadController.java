@@ -57,6 +57,21 @@ public class CustomerLeadController{
         return ResponseEntity.ok().body(customerLeadDTO);
     }
 
+    @GetMapping(value="/customerLead/salesOrder")
+    public ResponseEntity<List<CustomerLeadDTO>> listAllForSalesOrder()
+    {
+        List<CustomerLeadDTO> customerLeadDTO = customerLeadImpl.listAllForSalesOrder();
+        return ResponseEntity.ok().body(customerLeadDTO);
+    }
+
+    @GetMapping(value="/customerLead/opportunity")
+    public ResponseEntity<List<CustomerLeadDTO>> listAllForOpportunity()
+    {
+        List<CustomerLeadDTO> customerLeadDTO = customerLeadImpl.listAllForOpportunity();
+        return ResponseEntity.ok().body(customerLeadDTO);
+    }
+
+
     @PostMapping(value="/customerLead/check")
     public ResponseEntity<Map<String, Boolean>> isExists(@RequestBody CustomerLeadDTO customerLeadDTO){
         Map<String, Boolean> res = new HashMap<>();

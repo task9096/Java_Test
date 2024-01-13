@@ -42,6 +42,9 @@ public class SalesOrderServiceImpl implements SalesOrderService{
     @Autowired
     private SalesOrderRepository salesOrderRepository;
 
+    @Autowired
+    private SalesOrderNativeRepository salesOrderNativeRepository;
+
     @Override
     public String addSalesOrderByLeadId(Long leadId, Long userId){
         LeadProduct leadProduct = leadProductRepository.findByLeadId(leadId);
@@ -123,7 +126,20 @@ public class SalesOrderServiceImpl implements SalesOrderService{
     @Override
     public List<SalesOrder> getAll() {
         List<SalesOrder> salesOrderList = salesOrderRepository.findAll();
+        List<SalesOrderDTO> salesOrderDtoList = salesOrderNativeRepository.findAllSalesOrderWithCustomerName();
         return salesOrderList;
+    }
+
+    @Override
+    public List<SalesOrderDTO> getAllWithCustomerName() {
+
+        List<SalesOrderDTO> salesOrderDtoList = salesOrderNativeRepository.findAllSalesOrderWithCustomerName();
+        return salesOrderDtoList;
+    }
+
+    public List<SalesOrderDTO> findAllSalesOrderByLoginCustomer(Long userId){
+        List<SalesOrderDTO> salesOrderDtoList = salesOrderNativeRepository.findAllSalesOrderByLoginCustomer(userId);
+        return salesOrderDtoList;
     }
 
 }

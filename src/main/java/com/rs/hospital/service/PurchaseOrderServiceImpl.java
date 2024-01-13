@@ -6,6 +6,7 @@ import com.rs.hospital.model.PurchaseOrder;
 import com.rs.hospital.model.PurchaseOrderHistory;
 import com.rs.hospital.model.SalesOrder;
 import com.rs.hospital.repository.PurchaseOrderHistoryRepository;
+import com.rs.hospital.repository.PurchaseOrderNativeRepository;
 import com.rs.hospital.repository.PurchaseOrderRepository;
 import com.rs.hospital.repository.SalesOrderRepository;
 import com.rs.hospital.utility.PoNumberGenerator;
@@ -34,7 +35,10 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService{
     private PurchaseOrderHistoryRepository purchaseOrderHistoryRepository;
 
     @Autowired
-    SalesOrderService salesOrderService;
+    private SalesOrderService salesOrderService;
+
+    @Autowired
+    private PurchaseOrderNativeRepository purchaseOrderNativeRepository;
 
     @Override
     public PurchaseOrderDTO getPurchaseOrderBySalesOrderId(Long salesOrderId) {
@@ -150,24 +154,41 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService{
     @Override
     public List<PurchaseOrderDTO> getAll() {
         List<PurchaseOrder> purchaseOrderList = repo.findAll();
-        List<PurchaseOrderDTO> purchaseOrderDTOList = new ArrayList<>();
+        //List<PurchaseOrderDTO> purchaseOrderDTOList = new ArrayList<>();
 
-        for(PurchaseOrder PurchaseOrder : purchaseOrderList) {
+        List<PurchaseOrderDTO> purchaseOrderDTOList = purchaseOrderNativeRepository.findAllPurchaseOrderWithCustomerName();
+
+        /*for(PurchaseOrder PurchaseOrder : purchaseOrderList) {
             purchaseOrderDTOList.add(convertModelToDTO(PurchaseOrder));
-        }
+        }*/
+
+        return purchaseOrderDTOList;
+    }
+
+    @Override
+    public List<PurchaseOrderDTO> listAllByLoginCustomer(long userId) {
+        List<PurchaseOrder> purchaseOrderList = repo.findAll();
+        //List<PurchaseOrderDTO> purchaseOrderDTOList = new ArrayList<>();
+
+        List<PurchaseOrderDTO> purchaseOrderDTOList = purchaseOrderNativeRepository.findAllPurchaseOrderByLoginCustomer(userId);
+
+        /*for(PurchaseOrder PurchaseOrder : purchaseOrderList) {
+            purchaseOrderDTOList.add(convertModelToDTO(PurchaseOrder));
+        }*/
 
         return purchaseOrderDTOList;
     }
 
     @Override
     public List<PurchaseOrderDTO> getAllApproved() {
-        List<PurchaseOrder> purchaseOrderList = repo.findAllApproved();
+        /*List<PurchaseOrder> purchaseOrderList = repo.findAllApproved();
+
         List<PurchaseOrderDTO> purchaseOrderDTOList = new ArrayList<>();
 
         for(PurchaseOrder PurchaseOrder : purchaseOrderList) {
             purchaseOrderDTOList.add(convertModelToDTO(PurchaseOrder));
-        }
-
+        }*/
+        List<PurchaseOrderDTO> purchaseOrderDTOList = purchaseOrderNativeRepository.findAllPurchaseOrderWithCustomerNameApproved();
         return purchaseOrderDTOList;
     }
 
